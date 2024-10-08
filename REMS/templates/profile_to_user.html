@@ -1,0 +1,55 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block navbar %}
+<div class="container mt-4 profile-container">
+    <div class="profile-header">
+        {% if profile2.profile_pic %}
+        <img src="{{ profile2.profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+        <img src="default-profile-pic.png" alt="Default Profile Picture" class="profile-pic">
+        {% endif %}
+        <div class="profile-info">
+            <h1>{{ profile2.user.username }}</h1>
+            {% if profile2.user.first_name and profile2.user.last_name %}
+            <p>{{ profile2.user.first_name }} {{ profile2.user.last_name }}</p>
+            {% endif %}
+            {% if profile2.bio %}
+            <p class="bio">{{ profile2.bio }}</p>
+            {% else %}
+            <p class="bio">No bio available.</p>
+            {% endif %}
+            <div class="contacts">
+                <h2>Contacts</h2>
+                {% if profile2.user.email %}
+                <p>Email: {{ profile2.user.email }}</p>
+                {% endif %}
+                {% if profile2.phone %}
+                <p>Phone: {{ profile2.phone }}</p>
+                {% else %}
+                <p>No phone number available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="social-stats">
+        <div>
+            <span>Posts</span>
+            <span>{{total}}</span><!-- Example data -->
+        </div>
+    </div>
+    <div class="gallery">
+        <h2>Properties</h2>
+        <div class="gallery-grid">
+            {% for i in post %}
+            <div class="image-container">
+                <a href="{% url 'propertydetails' i.id %}">
+                    <img src="{{ i.image.url }}" alt="Post Image">
+                </a>
+            </div>
+            {% empty %}
+            <p>No images available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock navbar %}

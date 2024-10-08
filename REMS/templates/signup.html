@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlotTalk</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Grey+Qo&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="BackSign">
+          {% if messages %}
+            {% for i in messages %}
+              {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success" style="position: fixed; top: 0; left: 0;">
+                  {{i}}
+                </div>
+              {% endif %}
+              {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger" style="position: fixed; top: 0; left: 0;">
+                  {{i}}
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        <div id="BoxSign" class="row m-5">
+            <div class="col d-flex align-items-center"><img src="{% static 'images\mobile-login-animate.svg' %}" alt="" height="506px"></div>
+            <div class="col">
+                <div class="text-center"><p id="headsign">Sign Up</p></div>
+                <form action="" method="post">
+                 {% csrf_token %}
+                        <div class="row p-4">    
+                            <div class="inputbox col mx-3">
+                                {% if form.first_name.errors %}
+                                <div class="error">
+                                    <div class="error__icon">
+                                      <svg
+                                        fill="none"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
+                                          fill="#393a37"
+                                        ></path>
+                                      </svg>
+                                    </div>
+                                    <div class="error__title">{{form.first_name.errors}}</div>
+                                  </div>                                  
+                                {%endif%}
+                                <input type="text" required="required" name="{{ form.first_name.name }}" value="{{ form.first_name.value|default_if_none:'' }}" autocomplete="off">
+                                <span>First Name</span>
+                                <i></i>
+                            </div>
+                            <div class="inputbox col mx-3">
+                                {% if form.last_name.errors %}
+                                <div class="error">
+                                    <div class="error__icon">
+                                      <svg
+                                        fill="none"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
+                                          fill="#393a37"
+                                        ></path>
+                                      </svg>
+                                    </div>
+                                    <div class="error__title">{{form.last_name.errors}}</div>
+                                  </div>                                  
+                                {%endif%}
+                                <input type="text" required="required" name="{{ form.last_name.name }}" value="{{ form.last_name.value|default_if_none:'' }}" autocomplete="off">
+                                <span>Last Name</span>
+                                <i></i>
+                            </div>
+                        </div>
+                        <div class="row p-4">    
+                            <div class="inputbox col mx-3">
+                                {% if form.email.errors %}
+                                <div class="error">
+                                    <div class="error__icon">
+                                      <svg
+                                        fill="none"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
+                                          fill="#393a37"
+                                        ></path>
+                                      </svg>
+                                    </div>
+                                    <div class="error__title">{{form.email.errors}}</div>
+                                  </div>                                  
+                                {%endif%}
+                                <input type="email" required="required" name="{{ form.email.name }}" value="{{ form.email.value|default_if_none:'' }}" autocomplete="off">
+                                <span>Email</span>
+                                <i></i>
+                            </div>
+                            <div class="inputbox col mx-3">
+                                {% if form.username.errors %}
+                                <div class="error">
+                                    <div class="error__icon">
+                                      <svg
+                                        fill="none"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
+                                          fill="#393a37"
+                                        ></path>
+                                      </svg>
+                                    </div>
+                                    <div class="error__title">{{form.username.errors}}</div>
+                                  </div>                                  
+                                {%endif%}
+                                <input type="text" required="required" name="{{ form.username.name }}" value="{{ form.username.value|default_if_none:'' }}" autocomplete="off">
+                                <span>Username</span>
+                                <i></i>
+                            </div>
+                        </div>
+                        <div class="row p-4">    
+                            <div class="inputbox col mx-3">
+                                {% if form.password1.errors %}
+                                <div class="error">
+                                    <div class="error__icon">
+                                      <svg
+                                        fill="none"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
+                                          fill="#393a37"
+                                        ></path>
+                                      </svg>
+                                    </div>
+                                    <div class="error__title">{{form.password1.errors}}</div>
+                                  </div>                                  
+                                {%endif%}
+                                <input type="password" required="required" name="{{ form.password1.name }}" value="{{ form.password1.value|default_if_none:'' }}" autocomplete="off">
+                                <span>Password</span>
+                                <i></i>
+                            </div>
+                            <div class="inputbox col mx-3">
+                                {% if form.password2.errors %}
+                                <div class="error">
+                                    <div class="error__icon">
+                                      <svg
+                                        fill="none"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
+                                          fill="#393a37"
+                                        ></path>
+                                      </svg>
+                                    </div>
+                                    <div class="error__title">{{form.password2.errors}}</div>
+                                  </div>                                  
+                                {%endif%}
+                                <input type="password" required="required" name="{{ form.password2.name }}" value="{{ form.password2.value|default_if_none:'' }}" autocomplete="off">
+                                <span>Conform Password</span>
+                                <i></i>
+                            </div>
+                        </div>
+                        <div class="row p-4">
+                            <div class="inputbox col mx-3">
+                                {{form.password1.help_text}}
+                                {{form.password2.help_text}}
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-evenly">
+                            <button type="submit" class="button1">Sign in</button>
+                            <a href="{% url 'login' %}"><button type="button" class="button2">Already a user</button></a>
+                          </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

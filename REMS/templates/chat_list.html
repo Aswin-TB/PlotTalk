@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block navbar %}
+<div class="chat-list-container">
+    <h1 class="text-center mt-3">Your Chat</h1>
+    {% if users %}
+    {% for user in users %}
+    <a href="{% url 'chat' user.user.id %}" style="text-decoration: none;color: black;">
+        <div class="user">
+            {% if user.profile_pic %}
+            <div class="image d-flex justify-content-evenly align-items-center"><img src="{{ user.profile_pic.url }}"
+                    alt="" style="width: 53px; height: 53px; border-radius: 50%;"></div>
+            {% else %}
+            <div class="image"></div>
+            {% endif %}
+            <div class="user__content">
+                <div class="text">
+                    <span class="name">{{ user.user.first_name }}</span>
+                    <p class="username">@{{ user.user.username }}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <p>You have no chats yet.</p>
+    {% endif %}
+</div>
+{% endblock navbar %}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            /* Set body background to black */
+        }
+
+        .chat-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            /* Chat box background white */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            max-height: 300px;
+            /* Fixed height for container */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
+            overflow-x: hidden;
+            /* Prevent horizontal scrolling */
+            margin-bottom: 10px;
+            /* Space between messages and input */
+            padding-right: 10px;
+            /* Space for scrollbar */
+        }
+
+        .message {
+            width: 200px;
+            /* Fixed width for the message box */
+            padding: 10px 10px 20px 10px;
+            /* Padding for the message */
+            border-radius: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            word-wrap: break-word;
+            /* Ensure long words break */
+            overflow-wrap: break-word;
+            /* Ensure compatibility */
+            white-space: normal;
+            /* Allow normal line breaks */
+        }
+
+        .received {
+            background-color: #e1f5fe;
+            align-self: flex-start;
+            border: 1px solid #b3e5fc;
+        }
+
+        .sent {
+            background-color: #c8e6c9;
+            align-self: flex-end;
+            border: 1px solid #a5d6a7;
+        }
+
+        .message-time {
+            font-size: 0.75em;
+            color: #777;
+            position: relative;
+            /* Change to relative */
+            margin-top: 5px;
+            /* Add margin for spacing */
+            right: 0;
+            /* Align it to the right */
+            white-space: nowrap;
+            /* Keep the time on one line */
+        }
+
+        .input-group {
+            margin-top: 10px;
+        }
+
+        .input-group input {
+            border-radius: 25px;
+        }
+
+        .input-group button {
+            border-radius: 25px;
+        }
+
+        .header {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+    </style>
+    <title>Chat Box</title>
+</head>
+
+<body>
+    {% extends 'home.html' %}
+    {% load static %}
+    {% block navbar %}
+    <h1 class="text-center mt-3">Chat with {{ re.user.first_name }}</h1>
+
+    <div class="chat-container">
+        <div class="header d-flex align-items-center">
+            <div>
+                {% if re.profile_pic %}
+                <img src="{{ re.profile_pic.url }}" class="profile-img" draggable="false" />
+                {% else %}
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none"
+                        aria-label="User Icon">
+                        <circle cx="12" cy="12" r="10" stroke="#000" stroke-width="1.5" />
+                        <path
+                            d="M7.5 17C9.8317 14.5578 14.1432 14.4428 16.5 17M14.4951 9.5C14.4951 10.8807 13.3742 12 11.9915 12C10.6089 12 9.48797 10.8807 9.48797 9.5C9.48797 8.11929 10.6089 7 11.9915 7C13.3742 7 14.4951 8.11929 14.4951 9.5Z"
+                            stroke="#000" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                </span>
+                {% endif %}
+            </div>
+            <div class="ml-2">
+                <strong>{{ receiver.first_name }}</strong><br>
+                <small>@{{ receiver.username }}</small>
+            </div>
+        </div>
+
+        <div class="chat-messages">
+            <ol class="list-unstyled">
+                {% for message in messages %}
+                <li class="d-flex mb-2">
+                    {% if message.sender == user %}
+                    <div class="ml-auto">
+                        <div class="message sent">
+                            <p>{{ message.content }}</p>
+                            <time class="message-time">{{ message.time|date:"d M Y H:i" }}</time>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="mr-auto">
+                        <div class="message received">
+                            <p>{{ message.content }}</p>
+                            <time class="message-time">{{ message.time|date:"d M Y H:i" }}</time>
+                        </div>
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Type here!" name="{{ form.content.name }}"
+                    required />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endblock navbar %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
